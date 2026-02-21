@@ -1,0 +1,31 @@
+rules:
+  - name: EU_PII_must_stay_in_EU
+    when:
+      jurisdiction: EU
+      data_classification: PII
+    allow:
+      - provider: azure
+        region: westeurope
+        model: sim-gpt
+      - provider: aws
+        region: eu-central-1
+        model: sim-claude
+    reason_codes:
+      - EU_RESIDENCY_REQUIRED
+      - PII_RESTRICTED
+
+  - name: UAE_GOV_must_stay_in_UAE
+    when:
+      jurisdiction: UAE
+      data_classification: GOV
+    allow:
+      - provider: azure
+        region: uaenorth
+        model: sim-gpt
+    reason_codes:
+      - UAE_SOVEREIGN_REQUIRED
+
+default:
+  decision: DENY
+  reason_codes:
+    - NO_MATCHING_POLICY
