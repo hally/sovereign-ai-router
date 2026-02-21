@@ -21,7 +21,7 @@ Compliance enforcement should not be delegated to individual application teams.
 
 ## Solution Overview
 
-The Sovereign AI Router centralizes routing decisions and enforces policy before AI inference is executed.
+The Sovereign AI Router centralizes routing decisions and enforces policy before AI inference is executed.Provider targets are abstracted via a registry; policies select an approved provider/region/model and the router resolves a provider-specific endpoint without hardcoding compliance in application code.
 
 The system evaluates:
 
