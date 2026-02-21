@@ -182,3 +182,5 @@ cython_debug/
 
 # Build artifacts
 build/
+.venv/
+__pycache__/
