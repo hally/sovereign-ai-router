@@ -1,0 +1,18 @@
+providers:
+  - name: azure
+    regions:
+      - name: westeurope
+        models: [sim-gpt, sim-claude]
+      - name: northeurope
+        models: [sim-gpt]
+      - name: uaenorth
+        models: [sim-gpt]
+
+  - name: aws
+    regions:
+      - name: eu-central-1
+        models: [sim-bedrock, sim-claude]
+      - name: us-east-1
+        models: [sim-bedrock]
+      - name: me-central-1
+        models: [sim-bedrock]
