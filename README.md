@@ -107,8 +107,8 @@ rules:
       - PII_RESTRICTED
    
 ## Deployment
-terraform init
-terraform apply
+- terraform init
+- terraform apply
 
 ## Destroy when not in use:
-terraform destroy
+- terraform destroy
