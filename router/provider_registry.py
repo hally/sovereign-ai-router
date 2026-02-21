@@ -13,18 +13,13 @@ class ProviderTarget:
 
 def load_provider_registry(yaml_data: Dict[str, Any]) -> Dict[str, Any]:
     """
-    Loads the provider registry YAML into a normalized dict.
-    Expected structure:
-      providers:
-        - name: aws|azure
-          regions:
-            - name: <region>
-              models: [<model>, ...]
+    Normalized registry:
+      registry[provider][region] = {"endpoint": str, "models": [str, ...]}
     """
     if "providers" not in yaml_data or not isinstance(yaml_data["providers"], list):
         raise ValueError("Invalid providers.yml: missing 'providers' list")
 
-    registry: Dict[str, Dict[str, List[str]]] = {}
+    registry: Dict[str, Dict[str, Dict[str, Any]]] = {}
 
     for p in yaml_data["providers"]:
         name = p.get("name")
@@ -35,17 +30,26 @@ def load_provider_registry(yaml_data: Dict[str, Any]) -> Dict[str, Any]:
         registry[name] = {}
         for r in regions:
             rname = r.get("name")
+            endpoint = r.get("endpoint")
             models = r.get("models", [])
-            if not rname or not isinstance(models, list):
-                raise ValueError(f"Invalid providers.yml: region entry malformed under provider {name}")
-            registry[name][rname] = models
+            if not rname or not isinstance(models, list) or not endpoint:
+                raise ValueError(f"Invalid providers.yml: region must include name, endpoint, models[] (provider={name})")
+
+            registry[name][rname] = {"endpoint": endpoint, "models": models}
 
     return registry
 
 
-def target_is_supported(registry: Dict[str, Dict[str, List[str]]], target: ProviderTarget) -> bool:
+def target_is_supported(registry: Dict[str, Any], target: ProviderTarget) -> bool:
     return (
         target.provider in registry
         and target.region in registry[target.provider]
-        and target.model in registry[target.provider][target.region]
+        and target.model in registry[target.provider][target.region]["models"]
     )
+
+
+def resolve_endpoint(registry: Dict[str, Any], target: ProviderTarget) -> Optional[str]:
+    try:
+        return registry[target.provider][target.region]["endpoint"]
+    except Exception:
+        return None

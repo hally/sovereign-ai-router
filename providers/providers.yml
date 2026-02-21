@@ -2,17 +2,23 @@ providers:
   - name: azure
     regions:
       - name: westeurope
+        endpoint: https://azure.example/westeurope/infer
         models: [sim-gpt, sim-claude]
       - name: northeurope
+        endpoint: https://azure.example/northeurope/infer
         models: [sim-gpt]
       - name: uaenorth
+        endpoint: https://azure.example/uaenorth/infer
         models: [sim-gpt]
 
   - name: aws
     regions:
       - name: eu-central-1
+        endpoint: https://aws.example/eu-central-1/infer
         models: [sim-bedrock, sim-claude]
       - name: us-east-1
+        endpoint: https://aws.example/us-east-1/infer
         models: [sim-bedrock]
       - name: me-central-1
+        endpoint: https://aws.example/me-central-1/infer
         models: [sim-bedrock]

@@ -34,10 +34,18 @@ def route_request(request: Dict[str, Any]) -> Dict[str, Any]:
     }
 
     if decision.selected:
+        endpoint = None
+        try:
+            from .provider_registry import resolve_endpoint
+            endpoint = resolve_endpoint(registry, decision.selected)
+        except Exception:
+            endpoint = None
+
         response["selected"] = {
             "provider": decision.selected.provider,
             "region": decision.selected.region,
             "model": decision.selected.model,
+            "endpoint": endpoint,
         }
 
     return response
