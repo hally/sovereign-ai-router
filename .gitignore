@@ -184,3 +184,12 @@ cython_debug/
 build/
 .venv/
 __pycache__/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+
+# Terraform provider binaries
+terraform-provider-*.exe
