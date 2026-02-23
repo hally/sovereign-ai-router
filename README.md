@@ -53,14 +53,16 @@ It returns a deterministic decision including:
 ---
 
 ## Repository Structure
+
+```text
 sovereign-ai-router/
-├── router/ # Routing engine + Lambda handler
-├── policies/policy.yml # Compliance rules
+├── router/                 # Routing engine + Lambda handler
+├── policies/policy.yml     # Compliance rules
 ├── providers/providers.yml # Provider capability registry
-├── terraform/ # AWS infrastructure
+├── terraform/              # AWS infrastructure
 ├── requirements.txt
 └── README.md
-
+```
 ## Example Request
 
 bash
